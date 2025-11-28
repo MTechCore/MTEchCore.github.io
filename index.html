@@ -1,463 +1,113 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.Tech Core | База знаний</title>
-    <style>
-        :root {
-            --primary: #4CAF50;
-            --primary-dark: #388E3C;
-            --secondary: #2196F3;
-            --dark-bg: #121212;
-            --card-bg: #1e1e1e;
-            --text: #e0e0e0;
-            --text-secondary: #b0b0b0;
-            --border: #333;
-            --hover: #2a2a2a;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>M.Tech Core — База знаний</title>
+  <meta name="description" content="M.Tech Core — база знаний по Linux, Arduino, 3D-печати и программированию" />
+  <!-- Open Graph (будут динамически обновляться при просмотре статьи) -->
+  <meta property="og:title" content="M.Tech Core" />
+  <meta property="og:description" content="База знаний" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/assets/favicon.svg" />
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <!-- основной CSS -->
+  <link rel="stylesheet" href="style.css" />
 
-        body {
-            background: var(--dark-bg);
-            color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            padding: 0;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            padding: 2rem 1rem;
-            text-align: center;
-            border-bottom: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at top right, rgba(76, 175, 80, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-            position: relative;
-        }
-
-        .header p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .nav-container {
-            background: var(--card-bg);
-            padding: 1rem;
-            margin: 1rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-
-        .nav-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-item {
-            background: var(--dark-bg);
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
-        }
-
-        .nav-item:hover {
-            background: var(--hover);
-            transform: translateY(-2px);
-            border-color: var(--primary);
-        }
-
-        .nav-item i {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .nav-item h3 {
-            color: var(--text);
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .nav-item p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .content-section {
-            display: none;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .content-section.active {
-            display: block;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            border-color: var(--primary);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-        }
-
-        .card h3 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
-
-        .card .tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            background: rgba(76, 175, 80, 0.1);
-            color: var(--primary);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            border: 1px solid var(--primary);
-        }
-
-        .search-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 1rem;
-            border-radius: 25px;
-            border: 2px solid var(--border);
-            background: var(--card-bg);
-            color: var(--text);
-            font-size: 1rem;
-            outline: none;
-        }
-
-        .search-box:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
-        }
-
-        .footer {
-            background: var(--card-bg);
-            padding: 2rem;
-            text-align: center;
-            margin-top: 3rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .social-link {
-            color: var(--text);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: var(--hover);
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .nav-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <!-- Microdata для SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "M.Tech Core — База знаний",
+    "description": "База знаний по Linux, Arduino, 3D-печати и программированию"
+  }
+  </script>
 </head>
 <body>
-    <header class="header">
-        <h1>📚 M.Tech Core</h1>
-        <p>Центр знаний по Linux, Arduino, 3D-печати и программированию</p>
+  <div id="app" class="app">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="/">
+          <svg class="logo" width="36" height="36" viewBox="0 0 24 24" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="var(--accent-1)" />
+                <stop offset="1" stop-color="var(--accent-2)" />
+              </linearGradient>
+            </defs>
+            <rect width="24" height="24" rx="6" fill="url(#g1)"></rect>
+          </svg>
+          <span class="brand-text">M.Tech Core</span>
+        </a>
+
+        <nav class="top-nav">
+          <button id="themeToggle" class="btn ghost" aria-label="Переключить тему">🌓</button>
+          <a href="/admin" class="btn">Admin</a>
+        </nav>
+      </div>
+
+      <div class="hero">
+        <h1>📚 База знаний — Linux, Arduino, 3D-печать, Python</h1>
+        <p class="lead">Короткие практические статьи, примеры и заметки — открытые и простые для деплоя на GitHub Pages</p>
+
+        <div class="search-wrap">
+          <input id="searchInput" class="search" placeholder="🔍 Поиск по базе знаний — введите ключевое слово..." />
+        </div>
+      </div>
     </header>
 
-    <div class="search-container">
-        <input type="text" class="search-box" placeholder="🔍 Поиск по базе знаний..." id="searchInput">
-    </div>
+    <main class="container">
+      <section class="categories" aria-label="Категории">
+        <button class="chip" data-filter="all">Все</button>
+        <button class="chip" data-filter="Linux">Linux</button>
+        <button class="chip" data-filter="Arduino">Arduino</button>
+        <button class="chip" data-filter="3D">3D-печать</button>
+        <button class="chip" data-filter="Python">Python</button>
+      </section>
 
-    <div class="nav-container">
-        <div class="nav-grid">
-            <div class="nav-item" onclick="showSection('linux')">
-                <i>🐧</i>
-                <h3>Linux</h3>
-                <p>Команды, скрипты, настройка</p>
-            </div>
-            <div class="nav-item" onclick="showSection('arduino')">
-                <i>⚡</i>
-                <h3>Arduino</h3>
-                <p>Проекты, схемы, датчики</p>
-            </div>
-            <div class="nav-item" onclick="showSection('3d')">
-                <i>🖨️</i>
-                <h3>3D-печать</h3>
-                <p>Модели, настройка, материалы</p>
-            </div>
-            <div class="nav-item" onclick="showSection('python')">
-                <i>🐍</i>
-                <h3>Python</h3>
-                <p>Скрипты, ML, автоматизация</p>
-            </div>
-        </div>
-    </div>
+      <section id="posts" class="posts-grid" aria-live="polite">
+        <!-- ArticleCard компоненты динамически рендерятся script.js -->
+      </section>
 
-    <div id="linuxSection" class="content-section">
-        <h2>Linux и системное администрирование</h2>
-        <div class="card-grid">
-            <div class="card">
-                <h3>Настройка WiFi на Raspberry Pi</h3>
-                <p>Полное руководство по подключению без GUI через wpa_supplicant</p>
-                <div class="tags">
-                    <span class="tag">raspberry pi</span>
-                    <span class="tag">wifi</span>
-                    <span class="tag">cli</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3>Создание скриптов bash</h3>
-                <p>Автоматизация рутинных задач в Linux</p>
-                <div class="tags">
-                    <span class="tag">bash</span>
-                    <span class="tag">scripts</span>
-                    <span class="tag">automation</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3>Установка Docker</h3>
-                <p>Развертывание контейнеров в Linux</p>
-                <div class="tags">
-                    <span class="tag">docker</span>
-                    <span class="tag">containers</span>
-                    <span class="tag">devops</span>
-                </div>
-            </div>
-        </div>
-    </div>
+      <!-- Модал просмотра статьи -->
+      <dialog id="articleModal" class="modal">
+        <article class="modal-content">
+          <header>
+            <h2 id="modalTitle"></h2>
+            <div class="meta" id="modalMeta"></div>
+          </header>
+          <div id="modalBody" class="modal-body"></div>
+          <footer class="modal-footer">
+            <button id="modalClose" class="btn ghost">Закрыть</button>
+            <a id="modalPermalink" class="btn" href="#">Открыть (Permalink)</a>
+          </footer>
+        </article>
+      </dialog>
+    </main>
 
-    <div id="arduinoSection" class="content-section">
-        <h2>Arduino и электроника</h2>
-        <div class="card-grid">
-            <div class="card">
-                <h3>Первый проект: мигающий светодиод</h3>
-                <p>Пошаговое руководство для начинающих</p>
-                <div class="tags">
-                    <span class="tag">beginner</span>
-                    <span class="tag">led</span>
-                    <span class="tag">arduino uno</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3>Датчики температуры DHT22</h3>
-                <p>Считываем данные и отправляем на сервер</p>
-                <div class="tags">
-                    <span class="tag">sensors</span>
-                    <span class="tag">dht22</span>
-                    <span class="tag">iot</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3>Сервоприводы и управление</h3>
-                <p>Контроль положения с помощью Arduino</p>
-                <div class="tags">
-                    <span class="tag">servo</span>
-                    <span class="tag">motors</span>
-                    <span class="tag">control</span>
-                </div>
-            </div>
+    <footer class="site-footer">
+      <form id="contactForm" class="contact-form" action="https://formspree.io/f/your-form-id" method="POST" novalidate>
+        <h3>Оставить сообщение</h3>
+        <div class="form-row">
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="text" name="name" placeholder="Имя (необязательно)" />
         </div>
-    </div>
-
-    <div id="3dSection" class="content-section">
-        <h2>3D-моделирование и печать</h2>
-        <div class="card-grid">
-            <div class="card">
-                <h3>Настройка Prusa i3</h3>
-                <p>Калибровка и первые слои</p>
-                <div class="tags">
-                    <span class="tag">prusa</span>
-                    <span class="tag">calibration</span>
-                    <span class="tag">printing</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3>Моделирование в Fusion 360</h3>
-                <p>Создание деталей с нуля</p>
-                <div class="tags">
-                    <span class="tag">fusion360</span>
-                    <span class="tag">cad</span>
-                    <span class="tag">design</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3>PLA vs PETG</h3>
-                <p>Сравнение материалов для печати</p>
-                <div class="tags">
-                    <span class="tag">materials</span>
-                    <span class="tag">plastic</span>
-                    <span class="tag">comparison</span>
-                </div>
-            </div>
+        <textarea name="message" placeholder="Ваше сообщение" required></textarea>
+        <div class="form-row">
+          <button type="submit" class="btn">Отправить</button>
         </div>
-    </div>
-
-    <div id="pythonSection" class="content-section">
-        <h2>Python и программирование</h2>
-        <div class="card-grid">
-            <div class="card">
-                <h3>Веб-скрапинг с BeautifulSoup</h3>
-                <p>Извлечение данных из HTML-страниц</p>
-                <div class="tags">
-                    <span class="tag">web scraping</span>
-                    <span class="tag">beautifulsoup</span>
-                    <span class="tag">data</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3>API клиент на requests</h3>
-                <p>Работа с REST API в Python</p>
-                <div class="tags">
-                    <span class="tag">api</span>
-                    <span class="tag">requests</span>
-                    <span class="tag">http</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3>Машинное обучение с scikit-learn</h3>
-                <p>Первые модели и предсказания</p>
-                <div class="tags">
-                    <span class="tag">ml</span>
-                    <span class="tag">scikit-learn</span>
-                    <span class="tag">ai</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <h3>Подпишитесь на обновления</h3>
-        <div class="social-links">
-            <a href="https://t.me/mtk_core" class="social-link" target="_blank">Telegram</a>
-            <a href="https://zen.yandex.ru/mtechcore" class="social-link" target="_blank">Дзен</a>
-            <a href="https://github.com/MTEchCore" class="social-link" target="_blank">GitHub</a>
-        </div>
-        <p style="margin-top: 1rem; color: var(--text-secondary);">© 2025 M.Tech Core. Все права защищены.</p>
+        <small class="muted">Отправка через Formspree (замените action в форме своим endpoint).</small>
+      </form>
+      <div class="footer-links">
+        <a href="https://t.me/mtk_core" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://github.com/MTEchCore" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <p class="copyright">© 2025 M.Tech Core</p>
     </footer>
+  </div>
 
-    <script>
-        function showSection(section) {
-            // Скрыть все секции
-            document.querySelectorAll('.content-section').forEach(el => {
-                el.classList.remove('active');
-            });
-            
-            // Показать выбранную
-            document.getElementById(section + 'Section').classList.add('active');
-            
-            // Прокрутка к секции
-            document.getElementById(section + 'Section').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Поиск по содержимому
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const cards = document.querySelectorAll('.card');
-            
-            cards.forEach(card => {
-                const text = card.textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-
-        // Показать первую секцию по умолчанию
-        document.addEventListener('DOMContentLoaded', function() {
-            showSection('linux');
-        });
-    </script>
+  <!-- POSTS JSON location: /data/posts.json (подгружается динамически) -->
+  <script src="script.js" type="module"></script>
 </body>
 </html>
