@@ -1,113 +1,102 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>M.Tech Core — База знаний</title>
-  <meta name="description" content="M.Tech Core — база знаний по Linux, Arduino, 3D-печати и программированию" />
-  <!-- Open Graph (будут динамически обновляться при просмотре статьи) -->
-  <meta property="og:title" content="M.Tech Core" />
-  <meta property="og:description" content="База знаний" />
-  <meta property="og:type" content="website" />
-  <link rel="icon" href="/assets/favicon.svg" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#E6F7FF" />
+<title>M.Tech Core — База знаний</title>
+<meta name="description" content="Практические заметки по Linux, Arduino, 3D-печати и Python. Быстро, кратко и понятно." />
+<link rel="icon" href="/assets/favicon.svg" />
+<link rel="stylesheet" href="style.css" />
 
-  <!-- основной CSS -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Microdata для SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "headline": "M.Tech Core — База знаний",
-    "description": "База знаний по Linux, Arduino, 3D-печати и программированию"
-  }
-  </script>
+<!-- Basic Open Graph (dynamic update in script.js when open article) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="M.Tech Core" />
 </head>
 <body>
-  <div id="app" class="app">
-    <header class="site-header">
-      <div class="header-inner">
+  <div class="site">
+    <header class="topbar">
+      <div class="container header-row">
         <a class="brand" href="/">
-          <svg class="logo" width="36" height="36" viewBox="0 0 24 24" aria-hidden="true">
-            <defs>
-              <linearGradient id="g1" x1="0" x2="1">
-                <stop offset="0" stop-color="var(--accent-1)" />
-                <stop offset="1" stop-color="var(--accent-2)" />
-              </linearGradient>
-            </defs>
-            <rect width="24" height="24" rx="6" fill="url(#g1)"></rect>
-          </svg>
+          <span class="logo-square" aria-hidden="true"></span>
           <span class="brand-text">M.Tech Core</span>
         </a>
 
-        <nav class="top-nav">
-          <button id="themeToggle" class="btn ghost" aria-label="Переключить тему">🌓</button>
-          <a href="/admin" class="btn">Admin</a>
-        </nav>
+        <div class="header-actions">
+          <button id="themeToggle" aria-label="Toggle theme" class="icon-btn">🌓</button>
+          <a class="btn btn-ghost" href="/admin">Admin</a>
+        </div>
       </div>
 
-      <div class="hero">
-        <h1>📚 База знаний — Linux, Arduino, 3D-печать, Python</h1>
-        <p class="lead">Короткие практические статьи, примеры и заметки — открытые и простые для деплоя на GitHub Pages</p>
+      <div class="hero container">
+        <h1 class="hero-title">📚 База знаний — Linux, Arduino, 3D-печать, Python</h1>
+        <p class="hero-sub">Короткие практические статьи, примеры и заметки — готово для деплоя на GitHub Pages</p>
 
         <div class="search-wrap">
-          <input id="searchInput" class="search" placeholder="🔍 Поиск по базе знаний — введите ключевое слово..." />
+          <label class="visually-hidden" for="searchInput">Поиск</label>
+          <div class="search-input">
+            <span class="search-icon">🔍</span>
+            <input id="searchInput" placeholder="Поиск по базе знаний — введите ключевое слово..." />
+          </div>
+        </div>
+
+        <div class="filters" role="toolbar" aria-label="Категории">
+          <button class="chip active" data-filter="all">Все</button>
+          <button class="chip" data-filter="Linux">Linux</button>
+          <button class="chip" data-filter="Arduino">Arduino</button>
+          <button class="chip" data-filter="3D">3D-печать</button>
+          <button class="chip" data-filter="Python">Python</button>
         </div>
       </div>
     </header>
 
-    <main class="container">
-      <section class="categories" aria-label="Категории">
-        <button class="chip" data-filter="all">Все</button>
-        <button class="chip" data-filter="Linux">Linux</button>
-        <button class="chip" data-filter="Arduino">Arduino</button>
-        <button class="chip" data-filter="3D">3D-печать</button>
-        <button class="chip" data-filter="Python">Python</button>
-      </section>
-
+    <main class="container main-content" id="main">
       <section id="posts" class="posts-grid" aria-live="polite">
-        <!-- ArticleCard компоненты динамически рендерятся script.js -->
+        <!-- Cards rendered by script.js -->
       </section>
-
-      <!-- Модал просмотра статьи -->
-      <dialog id="articleModal" class="modal">
-        <article class="modal-content">
-          <header>
-            <h2 id="modalTitle"></h2>
-            <div class="meta" id="modalMeta"></div>
-          </header>
-          <div id="modalBody" class="modal-body"></div>
-          <footer class="modal-footer">
-            <button id="modalClose" class="btn ghost">Закрыть</button>
-            <a id="modalPermalink" class="btn" href="#">Открыть (Permalink)</a>
-          </footer>
-        </article>
-      </dialog>
     </main>
 
+    <!-- Modal -->
+    <dialog id="articleModal" class="modal" aria-hidden="true">
+      <article class="modal-card">
+        <header class="modal-header">
+          <h2 id="modalTitle">Заголовок</h2>
+          <div id="modalMeta" class="meta"></div>
+        </header>
+        <div id="modalBody" class="modal-body"></div>
+        <footer class="modal-footer">
+          <a id="modalPermalink" class="btn btn-ghost" href="#">Permalink</a>
+          <button id="modalClose" class="btn">Закрыть</button>
+        </footer>
+      </article>
+    </dialog>
+
     <footer class="site-footer">
-      <form id="contactForm" class="contact-form" action="https://formspree.io/f/your-form-id" method="POST" novalidate>
-        <h3>Оставить сообщение</h3>
-        <div class="form-row">
-          <input type="email" name="email" placeholder="Email" required />
-          <input type="text" name="name" placeholder="Имя (необязательно)" />
+      <div class="container footer-grid">
+        <form id="contactForm" class="contact-form" action="https://formspree.io/f/your-form-id" method="POST" novalidate>
+          <h3>Оставить сообщение</h3>
+          <div class="form-row">
+            <input type="email" name="email" placeholder="Email" required />
+            <input type="text" name="name" placeholder="Имя (необязательно)" />
+          </div>
+          <textarea name="message" placeholder="Ваше сообщение" required></textarea>
+          <div class="form-row">
+            <button type="submit" class="btn">Отправить</button>
+            <small class="muted">Отправка через Formspree (замените action своим endpoint)</small>
+          </div>
+        </form>
+
+        <div class="footer-links">
+          <nav>
+            <a href="https://t.me/mtk_core" target="_blank" rel="noopener">Telegram</a>
+            <a href="https://github.com/MTechCore" target="_blank" rel="noopener">GitHub</a>
+          </nav>
+          <p class="copyright">© 2025 M.Tech Core</p>
         </div>
-        <textarea name="message" placeholder="Ваше сообщение" required></textarea>
-        <div class="form-row">
-          <button type="submit" class="btn">Отправить</button>
-        </div>
-        <small class="muted">Отправка через Formspree (замените action в форме своим endpoint).</small>
-      </form>
-      <div class="footer-links">
-        <a href="https://t.me/mtk_core" target="_blank" rel="noopener">Telegram</a>
-        <a href="https://github.com/MTEchCore" target="_blank" rel="noopener">GitHub</a>
       </div>
-      <p class="copyright">© 2025 M.Tech Core</p>
     </footer>
   </div>
 
-  <!-- POSTS JSON location: /data/posts.json (подгружается динамически) -->
-  <script src="script.js" type="module"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
