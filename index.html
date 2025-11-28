@@ -1,102 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="theme-color" content="#E6F7FF" />
-<title>M.Tech Core — База знаний</title>
-<meta name="description" content="Практические заметки по Linux, Arduino, 3D-печати и Python. Быстро, кратко и понятно." />
-<link rel="icon" href="/assets/favicon.svg" />
-<link rel="stylesheet" href="style.css" />
-
-<!-- Basic Open Graph (dynamic update in script.js when open article) -->
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="M.Tech Core" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя база знаний | M.Tech Core</title>
+    <style>
+        body {
+            background: #121212;
+            color: #e0e0e0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #4CAF50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 0.5rem;
+        }
+        a {
+            color: #2196F3;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+    </style>
 </head>
 <body>
-  <div class="site">
-    <header class="topbar">
-      <div class="container header-row">
-        <a class="brand" href="/">
-          <span class="logo-square" aria-hidden="true"></span>
-          <span class="brand-text">M.Tech Core</span>
-        </a>
-
-        <div class="header-actions">
-          <button id="themeToggle" aria-label="Toggle theme" class="icon-btn">🌓</button>
-          <a class="btn btn-ghost" href="/admin">Admin</a>
-        </div>
-      </div>
-
-      <div class="hero container">
-        <h1 class="hero-title">📚 База знаний — Linux, Arduino, 3D-печать, Python</h1>
-        <p class="hero-sub">Короткие практические статьи, примеры и заметки — готово для деплоя на GitHub Pages</p>
-
-        <div class="search-wrap">
-          <label class="visually-hidden" for="searchInput">Поиск</label>
-          <div class="search-input">
-            <span class="search-icon">🔍</span>
-            <input id="searchInput" placeholder="Поиск по базе знаний — введите ключевое слово..." />
-          </div>
-        </div>
-
-        <div class="filters" role="toolbar" aria-label="Категории">
-          <button class="chip active" data-filter="all">Все</button>
-          <button class="chip" data-filter="Linux">Linux</button>
-          <button class="chip" data-filter="Arduino">Arduino</button>
-          <button class="chip" data-filter="3D">3D-печать</button>
-          <button class="chip" data-filter="Python">Python</button>
-        </div>
-      </div>
-    </header>
-
-    <main class="container main-content" id="main">
-      <section id="posts" class="posts-grid" aria-live="polite">
-        <!-- Cards rendered by script.js -->
-      </section>
-    </main>
-
-    <!-- Modal -->
-    <dialog id="articleModal" class="modal" aria-hidden="true">
-      <article class="modal-card">
-        <header class="modal-header">
-          <h2 id="modalTitle">Заголовок</h2>
-          <div id="modalMeta" class="meta"></div>
-        </header>
-        <div id="modalBody" class="modal-body"></div>
-        <footer class="modal-footer">
-          <a id="modalPermalink" class="btn btn-ghost" href="#">Permalink</a>
-          <button id="modalClose" class="btn">Закрыть</button>
-        </footer>
-      </article>
-    </dialog>
-
-    <footer class="site-footer">
-      <div class="container footer-grid">
-        <form id="contactForm" class="contact-form" action="https://formspree.io/f/your-form-id" method="POST" novalidate>
-          <h3>Оставить сообщение</h3>
-          <div class="form-row">
-            <input type="email" name="email" placeholder="Email" required />
-            <input type="text" name="name" placeholder="Имя (необязательно)" />
-          </div>
-          <textarea name="message" placeholder="Ваше сообщение" required></textarea>
-          <div class="form-row">
-            <button type="submit" class="btn">Отправить</button>
-            <small class="muted">Отправка через Formspree (замените action своим endpoint)</small>
-          </div>
-        </form>
-
-        <div class="footer-links">
-          <nav>
-            <a href="https://t.me/mtk_core" target="_blank" rel="noopener">Telegram</a>
-            <a href="https://github.com/MTechCore" target="_blank" rel="noopener">GitHub</a>
-          </nav>
-          <p class="copyright">© 2025 M.Tech Core</p>
-        </div>
-      </div>
-    </footer>
-  </div>
-
-  <script type="module" src="script.js"></script>
+    <h1>Добро пожаловать в базу знаний M.Tech Core</h1>
+    <div class="container">
+        <p>Это центральный ресурс по:</p>
+        <ul>
+            <li>Linux и настройке систем</li>
+            <li>Проектам на Arduino и IoT</li>
+            <li>3D-моделированию и печати</li>
+        </ul>
+        <p>Скоро здесь появятся статьи и руководства. Подписывайтесь на <a href="https://t.me/m_tech_core">Telegram-канал</a> и <a href="https://dzen.ru/m_tech_core">Дзен-канал</a> для обновлений.</p>
+    </div>
 </body>
 </html>
