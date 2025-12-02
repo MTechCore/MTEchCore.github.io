@@ -8,28 +8,22 @@
 </head>
 <body>
   <header>
-    <div class="container header-inner">
+    <div class="container">
       <h1><a href="/">M.Tech Core</a> → Все статьи (<span id="count">0</span>)</h1>
-      <div class="header-controls">
-        <input type="text" id="search" placeholder="Поиск...">
-        <button id="theme-toggle">Тема</button>
-      </div>
+      <button id="theme-toggle">Тема</button>
     </div>
   </header>
 
   <main class="container">
-    <!-- Фильтры по темам -->
     <div class="filters">
       <button data-tag="all" class="active">Все</button>
       <button data-tag="arduino">Arduino</button>
       <button data-tag="linux">Linux</button>
       <button data-tag="python">Python</button>
     </div>
-
-    <div id="articles-container"></div>
+    <div id="list"></div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
