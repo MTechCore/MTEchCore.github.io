@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><title>wireguard-10-minutes — M.Tech Core</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head><body class="article-page">
+<header><div class="container header-inner"><h1><a href="/">M.Tech Core</a></h1><button id="theme-toggle">Тема</button></div></header>
+<div class="container"><article class="article" id="content">Загрузка...</article></div>
+<script>
+fetch("wireguard-10-minutes.md").then(r=>r.text()).then(t=>{
+  const parts=t.split('---'); const content=parts.slice(2).join('---').trim();
+  let title='wireguard-10-minutes'; parts[1]?.split('\n').forEach(l=>{if(l.startsWith('title:'))title=l.split(':')[1].trim()});
+  document.title=title+' — M.Tech Core';
+  document.getElementById('content').innerHTML=marked.parse(content);
+});
+</script><script src="script.js"></script></body></html>
