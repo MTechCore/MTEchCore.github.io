@@ -1,0 +1,177 @@
+/* ========================================
+   M.TECH CORE — КРАСИВЫЙ И ЧИСТЫЙ ДИЗАЙН 2025
+   Открытый исходный код — всё с комментариями
+   ======================================== */
+
+:root {
+  --bg: #0d1117;
+  --card: #161b22;
+  --text: #c9d1d9;
+  --border: #30363d;
+  --green: #00ff9d;
+  --radius: 20px;
+}
+.light {
+  --bg: #ffffff;
+  --card: #f6f8fa;
+  --text: #24292f;
+  --border: #d0d7de;
+  --green: #00cc7a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  transition: all 0.4s ease;
+}
+
+/* Контейнер */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* Шапка */
+header {
+  padding: 32px 0;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+header h1 a {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--green);
+  text-decoration: none;
+  background: linear-gradient(90deg, var(--green), #00ffaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Поиск и кнопка темы */
+.header-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+#search {
+  padding: 14px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--text);
+  width: 340px;
+  max-width: 100%;
+  font-size: 1rem;
+}
+#search:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 5px rgba(0,255,157,.2);
+}
+#theme-toggle {
+  padding: 12px 28px;
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 50px;
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .3s;
+}
+#theme-toggle:hover {
+  background: var(--green);
+  color: #000;
+  border-color: var(--green);
+}
+
+/* Контент */
+.hero { text-align: center; padding: 60px 0; }
+.hero h2 {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--green), #00ffaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin: 60px 0;
+}
+.cat {
+  display: block;
+  padding: 48px 32px;
+  border-radius: var(--radius);
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.5rem;
+  transition: all .4s;
+  box-shadow: 0 10px 30px rgba(0,0,0,.3);
+}
+.cat:hover { transform: translateY(-16px); box-shadow: 0 30px 60px rgba(0,0,0,.5); }
+.cat.arduino { background: linear-gradient(135deg, #00bcd4, #006064); }
+.cat.linux   { background: linear-gradient(135deg, #ffb300, #ff6f00); }
+.cat.python  { background: linear-gradient(135deg, #4589ff, #0d47a1); }
+
+h2.section-title {
+  font-size: 2.2rem;
+  margin: 60px 0 30px;
+  background: linear-gradient(90deg, var(--green), #00ffaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+.article-card {
+  background: var(--card);
+  padding: 28px;
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+  border-left: 6px solid var(--green);
+  transition: all .3s;
+}
+.article-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,.3); }
+.article-card h3 a { color: var(--text); text-decoration: none; font-size: 1.5rem; }
+.article-card h3 a:hover { color: var(--green); }
+.article-card .meta { font-size: .95rem; opacity: .8; }
+
+.view-all { text-align: center; margin: 60px 0; }
+.view-all a {
+  color: var(--green);
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 14px 40px;
+  border: 2px solid var(--green);
+  border-radius: 50px;
+  display: inline-block;
+  transition: all .3s;
+}
+.view-all a:hover { background: var(--green); color: #000; }
+
+.filters { margin: 40px 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.filters button {
+  padding: 10px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all .3s;
+}
+.filters button.active { background: var(--green); color: #000; border-color: var(--green); }
