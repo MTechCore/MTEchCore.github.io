@@ -14,25 +14,31 @@
       <button id="theme-toggle">Тема</button>
     </div>
   </header>
+
   <div class="container">
-    <article class="article" id="content">Загрузка...</article>
+    <article class="article" id="content">
+      <h1>Загрузка статьи...</h1>
+    </article>
   </div>
+
   <script>
+    // Читаем .md файл из той же папки
     fetch("wireguard-10-minutes.md")
       .then(r => r.text())
       .then(text => {
         const parts = text.split('---');
         const content = parts.slice(2).join('---').trim();
         let title = 'wireguard-10-minutes';
-        const frontmatter = parts[1] || '';
-        frontmatter.split('\n').forEach(line => {
+        const fm = parts[1] || '';
+        fm.split('\n').forEach(line => {
           if (line.startsWith('title:')) title = line.split(':')[1].trim();
-          if (line.startsWith('date:')) document.querySelector('.meta')?.remove(); // можно добавить дату
         });
         document.title = title + ' — M.Tech Core';
         document.getElementById('content').innerHTML = marked.parse(content);
       })
-      .catch(() => document.getElementById('content').innerHTML = '<h1>Ошибка загрузки</h1>');
+      .catch(err => {
+        document.getElementById('content').innerHTML = '<h1>Ошибка загрузки статьи</h1><p>Проверьте, что файл ' + "wireguard-10-minutes.md" + ' существует.</p>';
+      });
   </script>
   <script src="../script.js"></script>
 </body>
