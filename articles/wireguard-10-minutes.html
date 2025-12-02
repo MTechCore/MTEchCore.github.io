@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>wireguard-10-minutes — M.Tech Core</title>
+  <title>WireGuard VPN сервер за 10 минут — M.Tech Core</title>
   <link rel="stylesheet" href="../style.css">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
@@ -17,28 +17,15 @@
 
   <div class="container">
     <article class="article" id="content">
-      <h1>Загрузка статьи...</h1>
+      <h1>WireGuard VPN сервер за 10 минут</h1>
+      <div id="markdown-body"></div>
     </article>
   </div>
 
   <script>
-    // Читаем .md файл из той же папки
-    fetch("wireguard-10-minutes.md")
-      .then(r => r.text())
-      .then(text => {
-        const parts = text.split('---');
-        const content = parts.slice(2).join('---').trim();
-        let title = 'wireguard-10-minutes';
-        const fm = parts[1] || '';
-        fm.split('\n').forEach(line => {
-          if (line.startsWith('title:')) title = line.split(':')[1].trim();
-        });
-        document.title = title + ' — M.Tech Core';
-        document.getElementById('content').innerHTML = marked.parse(content);
-      })
-      .catch(err => {
-        document.getElementById('content').innerHTML = '<h1>Ошибка загрузки статьи</h1><p>Проверьте, что файл ' + "wireguard-10-minutes.md" + ' существует.</p>';
-      });
+    // Контент уже встроен — просто парсим
+    const content = "# WireGuard — самый быстрый и простой VPN\n\nУстановка на Ubuntu/Debian за 10 минут. Работает на VPS за 100₽/мес.\n\n## Установка\n\n```bash\nsudo apt update\nsudo apt install wireguard -y";
+    document.getElementById('markdown-body').innerHTML = marked.parse(content);
   </script>
   <script src="../script.js"></script>
 </body>
