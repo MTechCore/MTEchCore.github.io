@@ -1,8 +1,6 @@
 /* ========================================
-   M.TECH CORE — КРАСИВЫЙ И ЧИСТЫЙ ДИЗАЙН 2025
-   Открытый исходный код — всё с комментариями
+   M.TECH CORE — КРАСИВЫЙ И РАБОЧИЙ ДИЗАЙН
    ======================================== */
-
 :root {
   --bg: #0d1117;
   --card: #161b22;
@@ -28,10 +26,8 @@ body {
   transition: all 0.4s ease;
 }
 
-/* Контейнер */
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-/* Шапка */
 header {
   padding: 32px 0;
   position: sticky;
@@ -58,7 +54,6 @@ header h1 a {
   -webkit-text-fill-color: transparent;
 }
 
-/* Поиск и кнопка темы */
 .header-controls {
   display: flex;
   gap: 16px;
