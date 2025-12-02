@@ -1,40 +1,49 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Это сайт!</title>
-    <style>
-        body {
-            background: #121212;
-            color: #e0e0e0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            padding: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        h1 {
-            color: #4CAF50;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 0.5rem;
-        }
-        a {
-            color: #2196F3;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .container {
-            background: #1e1e1e;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M.Tech Core — Arduino • Linux • Python</title>
+  <meta name="description" content="Техническая база знаний: Arduino, Linux, Python, умный дом и автоматизация">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Это сайт!</h1>
+  <!-- Шапка сайта -->
+  <header>
+    <div class="container header-inner">
+      <h1><a href="/">M.Tech Core</a></h1>
+      <div class="header-controls">
+        <input type="text" id="search" placeholder="Поиск по сайту (Ctrl+K)" autocomplete="off">
+        <button id="theme-toggle" aria-label="Переключить тему">Тема</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Приветствие -->
+    <section class="hero">
+      <h2>Техническая база знаний</h2>
+      <p>Arduino • Linux • Python • Умный дом • Автоматизация</p>
+    </section>
+
+    <!-- Категории -->
+    <section class="categories">
+      <a href="all.html?tag=arduino" class="cat arduino">Arduino / ESP32</a>
+      <a href="all.html?tag=linux" class="cat linux">Linux / Серверы</a>
+      <a href="all.html?tag=python" class="cat python">Python</a>
+    </section>
+
+    <!-- Последние статьи -->
+    <section class="latest">
+      <h2 class="section-title">Последние статьи</h2>
+      <div id="articles-container"></div>
+      <div class="view-all"><a href="all.html">Все статьи →</a></div>
+    </section>
+  </main>
+
+  <!-- Marked для Markdown в статьях -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
