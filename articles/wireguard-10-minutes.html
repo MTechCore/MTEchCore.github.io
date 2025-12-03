@@ -1,1 +1,41 @@
-<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><title>WireGuard VPN сервер за 10 минут — M.Tech Core</title><link rel="stylesheet" href="../style.css"><script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script></head><body class="article-page"><header><div class="container"><h1><a href="../">M.Tech Core</a></h1><button id="theme-toggle">Тема</button></div></header><div class="container"><article class="article" id="content">Загрузка...</article></div><script>fetch("wireguard-10-minutes.md").then(r=>r.text()).then(t=>{const p=t.split('---');const c=p.slice(2).join('---').trim();document.getElementById('content').innerHTML=marked.parse(c);});</script><script src="../script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WireGuard VPN сервер за 10 минут — M.Tech Core</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body class="article-page">
+  <header>
+    <div class="container header-inner">
+      <h1><a href="../">M.Tech Core</a></h1>
+      <button id="theme-toggle" aria-label="Тема">
+        <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="#ffd60a"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="#ffd60a" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="moon" viewBox="0 0 24 24"><path fill="#e8eaed" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="container">
+    <article class="article">
+      <h1>WireGuard VPN сервер за 10 минут</h1>
+      <p class="meta">2025-11-15 • #linux #vpn #сервер #сеть</p>
+      <div id="content"></div>
+    </article>
+  </div>
+
+  <script>
+    // Рендерим Markdown + подсветка кода
+    const raw = "# WireGuard — самый быстрый и простой VPN\n\nУстановка на Ubuntu/Debian за 10 минут. Работает на VPS за 100₽/мес.\n\n## Установка\n\n```bash\nsudo apt update\nsudo apt install wireguard -y";
+    document.getElementById('content').innerHTML = marked.parse(raw);
+    document.querySelectorAll('pre code').forEach(block => {
+      hljs.highlightElement(block);
+    });
+  </script>
+  <script src="../script.js"></script>
+</body>
+</html>
