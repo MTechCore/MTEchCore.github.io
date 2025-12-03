@@ -3,36 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>M.Tech Core — база знаний</title>
+  <title>M.Tech Core — Arduino • Linux • Python</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
     <div class="container">
       <h1><a href="/">M.Tech Core</a></h1>
-      <div class="controls">
-        <input type="text" id="search" placeholder="Поиск...">
+      <div class="header-right">
+        <input type="text" id="search" placeholder="Поиск по сайту...">
         <button id="theme-toggle">Тема</button>
       </div>
     </div>
   </header>
 
   <main class="container">
-    <div class="hero">
+    <section class="hero">
       <h2>Техническая база знаний</h2>
-      <p>Arduino • Linux • Python</p>
-    </div>
+      <p>Arduino • Linux • Python • Умный дом • Автоматизация</p>
+    </section>
 
-    <div class="cards">
-      <a href="all.html?tag=arduino" class="card arduino">Arduino</a>
-      <a href="all.html?tag=linux" class="card linux">Linux</a>
-      <a href="all.html?tag=python" class="card python">Python</a>
-    </div>
+    <section class="categories">
+      <a href="all.html?tag=arduino" class="cat arduino">Arduino / ESP32</a>
+      <a href="all.html?tag=linux" class="cat linux">Linux / Серверы</a>
+      <a href="all.html?tag=python" class="cat python">Python</a>
+    </section>
 
-    <h2>Последние статьи</h2>
-    <div id="list"></div>
-    <p class="all-link"><a href="all.html">Все статьи →</a></p>
+    <section class="articles">
+      <h2>Последние статьи</h2>
+      <div id="list"></div>
+      <p class="all-link"><a href="all.html">Все статьи →</a></p>
+    </section>
   </main>
 
   <script src="script.js"></script>
