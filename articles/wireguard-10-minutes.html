@@ -5,36 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WireGuard VPN сервер за 10 минут — M.Tech Core</title>
   <link rel="stylesheet" href="../style.css">
+  <!-- Подсветка кода (по желанию) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/highlight.js/11.9.0/highlight.min.js"></script>
 </head>
 <body class="article-page">
-  <header>
+  <header class="header">
     <div class="container header-inner">
-      <h1><a href="../">M.Tech Core</a></h1>
-      <button id="theme-toggle" aria-label="Тема">
-        <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="#ffd60a"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="#ffd60a" stroke-width="2" stroke-linecap="round"/></svg>
-        <svg class="moon" viewBox="0 0 24 24"><path fill="#e8eaed" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
+      <div class="logo">
+        <img src="../img/logo.png" alt="M.Tech Core" class="logo-img">
+        <h1><a href="../">M.Tech Core</a></h1>
+      </div>
+      <button id="theme-toggle">Тема</button>
     </div>
   </header>
 
-  <div class="container">
+  <main class="container">
     <article class="article">
       <h1>WireGuard VPN сервер за 10 минут</h1>
-      <p class="meta">2025-11-15 • #linux #vpn #сервер #сеть</p>
-      <div id="content"></div>
+      <p class="meta">15 ноября 2025 • #linux #vpn #сервер</p>
+
+      <p>Самый быстрый и простой современный VPN. Установка на Ubuntu/Debian за 10 минут.</p>
+
+      <h2>Установка</h2>
+      <pre><code class="language-bash">sudo apt update
+sudo apt install wireguard -y</code></pre>
+
+      <h2>Генерация ключей</h2>
+      <pre><code class="language-bash">wg genkey | tee private.key | wg pubkey > public.key
+chmod 600 private.key</code></pre>
+
+      <h2>Конфиг сервера</h2>
+      <p>Создаём файл <code>/etc/wireguard/wg0.conf</code>:</p>
+      <pre><code class="language-ini">[Interface]
+Address = 10.0.0.1/24
+PrivateKey = &lt;СЕРВЕРНЫЙ ПРИВАТНЫЙ КЛЮЧ&gt;
+ListenPort = 51820
+
+PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+
+[Peer]
+PublicKey = &lt;КЛЮЧ КЛИЕНТА&gt;
+AllowedIPs = 10.0.0.2/32</code></pre>
+
+      <h2>Запуск</h2>
+      <pre><code class="language-bash">sudo wg-quick up wg0
+sudo systemctl enable wg-quick@wg0</code></pre>
+
+      <p>Готово! Теперь у тебя свой защищённый VPN-сервер</p>
+
+      <div class="tip">
+        <strong>Совет:</strong> Для мобильных клиентов используй QR-код:
+        <pre><code class="language-bash">qrencode -t ansiutf8 &lt; client.conf</code></pre>
+      </div>
     </article>
-  </div>
+  </main>
 
   <script>
-    // Рендерим Markdown + подсветка кода
-    const raw = "# WireGuard — самый быстрый и простой VPN\n\nУстановка на Ubuntu/Debian за 10 минут. Работает на VPS за 100₽/мес.\n\n## Установка\n\n```bash\nsudo apt update\nsudo apt install wireguard -y";
-    document.getElementById('content').innerHTML = marked.parse(raw);
+    // Подсветка кода (если используешь highlight.js)
     document.querySelectorAll('pre code').forEach(block => {
       hljs.highlightElement(block);
     });
+
+    // Переключение темы (из общего script.js)
+    document.getElementById('theme-toggle')?.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    });
+    if (localStorage.getItem('theme') === 'light') document.body.classList.add('light');
   </script>
   <script src="../script.js"></script>
 </body>
