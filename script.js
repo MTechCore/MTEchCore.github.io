@@ -1,9 +1,5 @@
 const ARTICLES = [
-  {title:"Умный дом на ESP32 + Home Assistant",slug:"esp32-home-assistant",date:"2025-12-02",tags:["arduino","esp32"]},
-  {title:"WireGuard VPN за 10 минут",slug:"wireguard-10-minutes",date:"2025-11-15",tags:["linux","vpn"]},
-  {title:"Docker Compose 2025",slug:"docker-2025",date:"2025-11-28",tags:["linux","docker"]},
-  {title:"FastAPI в продакшене",slug:"fastapi-production",date:"2025-11-20",tags:["python"]},
-  {title:"Arduino Blink",slug:"arduino-blink",date:"2025-04-01",tags:["arduino"]}
+  {title:"WireGuard VPN за 10 минут",slug:"wireguard-10-minutes",date:"2025-11-15",tags:["linux","vpn"]}
 ];
 
 function render(articles) {
