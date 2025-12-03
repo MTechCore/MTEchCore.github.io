@@ -48,25 +48,41 @@ body {
   gap: 20px;
   flex-wrap: wrap;
 }
+
+/* ========================================
+   ЛОГОТИП — КРАСИВЫЙ, НЕ РАСПЛЮЩЕННЫЙ
+   ======================================== */
 .logo {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
 }
-.logo a {
-  display: block;
-}
+
 .logo-img {
-  width: 64px;
-  height: 64px;
+  width: 80px;          /* ← Увеличил размер */
+  height: 80px;         /* ← Квадрат, никаких искажений */
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;  /* ← Главное! Теперь изображение не растягивается */
+  background: #000;     /* ← Чёрный фон под логотип (если PNG с прозрачностью) */
+  padding: 8px;         /* ← Отступ внутри круга */
   border: 4px solid var(--green);
-  box-shadow: 0 0 30px rgba(0,255,157,.5);
-  transition: transform 0.3s;
+  box-shadow: 0 0 30px rgba(0,255,157,.6);
+  transition: transform 0.3s ease;
 }
+
 .logo a:hover .logo-img {
-  transform: scale(1.1);
+  transform: scale(1.1) rotate(8deg);
+}
+
+/* Надпись рядом с логотипом */
+.header h1 a {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--green);
+  text-decoration: none;
+  background: linear-gradient(90deg, var(--green), #00ffaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Поиск и кнопка темы */
