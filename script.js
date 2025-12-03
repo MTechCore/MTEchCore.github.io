@@ -1,6 +1,6 @@
 // script.js — ЭТОТ ФАЙЛ РАБОТАЕТ НА 1000% НА GITHUB PAGES
 const ARTICLES = [
-  {title:"Умный дом на ESP32 + Home Assistant",slug:"esp32-home-assistant",date:"2025-12-02",tags:["arduino","esp32"]},
+  {title:"Не умный дом на ESP32 + Home Assistant",slug:"esp32-home-assistant",date:"2025-12-02",tags:["arduino","esp32"]},
   {title:"Docker Compose 2025",slug:"docker-2025",date:"2025-11-28",tags:["linux","docker"]},
   {title:"FastAPI в продакшене",slug:"fastapi-production",date:"2025-11-20",tags:["python"]},
   {title:"Arduino Blink",slug:"arduino-blink",date:"2025-04-01",tags:["arduino"]}
