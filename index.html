@@ -11,30 +11,31 @@
   <header>
     <div class="container">
       <h1><a href="/">M.Tech Core</a></h1>
-      <div class="header-right">
+      <div class="controls">
         <input type="text" id="search" placeholder="Поиск по сайту...">
-        <button id="theme-toggle">Тема</button>
+        <button id="theme-toggle">
+          <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="#ffd60a"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="#ffd60a" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="moon" viewBox="0 0 24 24"><path fill="#e8eaed" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
       </div>
     </div>
   </header>
 
   <main class="container">
-    <section class="hero">
-      <h2>Теехническая база знаний</h2>
+    <div class="hero">
+      <h2>Техническая база знаний</h2>
       <p>Arduino • Linux • Python • Умный дом • Автоматизация</p>
-    </section>
+    </div>
 
-    <section class="categories">
+    <div class="categories">
       <a href="all.html?tag=arduino" class="cat arduino">Arduino / ESP32</a>
       <a href="all.html?tag=linux" class="cat linux">Linux / Серверы</a>
       <a href="all.html?tag=python" class="cat python">Python</a>
-    </section>
+    </div>
 
-    <section class="articles">
-      <h2>Последние статьи</h2>
-      <div id="list"></div>
-      <p class="all-link"><a href="all.html">Все статьи →</a></p>
-    </section>
+    <h2>Последние статьи</h2>
+    <div id="list"></div>
+    <p class="more"><a href="all.html">Все статьи →</a></p>
   </main>
 
   <script src="script.js"></script>
