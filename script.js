@@ -3,7 +3,7 @@
 // ========================================
 
 const ARTICLES = [
-  {title:"WireGuard VPN за 10 минут",slug:"wireguard-10-minutes",date:"2025-11-15",tags:["linux","vpn"]}
+  {title:"5 смертельных ошибок Arduino, которые делают даже опытные",slug:"5-fatal-arduino-mistakes",date:"2025-11-15",tags:["arduino", "embedded", "proTips"]}
 ];
 
 // Рендер статей
@@ -90,3 +90,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const isAll = location.pathname.includes('all.html');
   render(isAll ? sorted : sorted.slice(0, 6));
 });
+
+// Функция копирования кода (для страниц статей)
+async function copyCode(button) {
+  const wrapper = button.parentElement;
+  const codeBlock = wrapper.querySelector('code');
+  const textToCopy = codeBlock.textContent;
+
+  try {
+    await navigator.clipboard.writeText(textToCopy);
+    // Визуальная обратная связь
+    const originalText = button.textContent;
+    button.textContent = 'Скопировано!';
+    button.classList.add('copied');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  } catch (err) {
+    console.error('Ошибка при копировании: ', err);
+    alert('Не удалось скопировать текст. Пожалуйста, выделите и скопируйте вручную.');
+  }
+}

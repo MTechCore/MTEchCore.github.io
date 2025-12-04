@@ -342,3 +342,192 @@ h2 {
   color: #000;
   border-color: var(--green);
 }
+
+/* Стили для страницы статьи */
+/* Убедитесь, что этот CSS находится после общих стилей */
+
+/* Обертка статьи */
+.article-page main.container {
+  max-width: 900px; /* Шире, чем для списка статей, но ограниченная */
+  padding: 20px 24px 80px; /* Дополнительный отступ снизу */
+}
+
+/* Основной контейнер статьи */
+.article {
+  background: var(--card);
+  padding: 48px 40px; /* Увеличенные отступы внутри */
+  border-radius: var(--radius);
+  box-shadow: 0 15px 40px rgba(0,0,0,.4);
+  border-left: 8px solid var(--green); /* Акцентная полоса */
+  color: var(--text); /* Убедимся, что цвет текста соответствует теме */
+}
+
+/* Заголовок статьи */
+.article h1 {
+  font-size: 2.8rem; /* Чуть меньше, чем h2 на главной */
+  font-weight: 800;
+  margin-bottom: 24px;
+  line-height: 1.3; /* Плотнее для заголовков */
+  color: var(--green); /* Яркий заголовок */
+  text-align: left; /* Не по центру как на главной */
+}
+
+/* Метаданные статьи (дата, теги) */
+.article .meta {
+  font-size: 1.1rem;
+  color: var(--border); /* Более тусклый цвет */
+  margin-bottom: 40px;
+  display: block;
+  font-style: italic; /* Курсив для стиля */
+}
+
+/* Параграфы в статье */
+.article p {
+  margin-bottom: 24px; /* Отступ снизу у параграфов */
+  font-size: 1.15rem; /* Чуть крупнее основного текста */
+  line-height: 1.8; /* Хороший межстрочный интервал для читаемости */
+}
+
+/* Заголовки внутри статьи */
+.article h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-top: 48px; /* Отступ сверху */
+  margin-bottom: 24px;
+  color: var(--text); /* Цвет как у основного текста */
+  padding-bottom: 12px; /* Отступ внутри под заголовком */
+  border-bottom: 2px solid var(--border); /* Разделительная линия */
+  line-height: 1.3;
+}
+
+.article h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* Блоки кода */
+.article pre {
+  background: #2d3748; /* Темный фон для кода, контрастный с --card */
+  border-radius: 12px;
+  padding: 24px; /* Внутренние отступы */
+  overflow-x: auto; /* Горизонтальный скролл при необходимости */
+  margin: 32px 0; /* Отступы до и после блока кода */
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.2); /* Внутренняя тень */
+  border: 1px solid var(--border); /* Тонкая рамка */
+  position: relative; /* Для позиционирования кнопки */
+}
+
+/* Текст внутри тега code (внутри строки) */
+.article code {
+  background: rgba(18, 26, 38, 0.5); /* Фон для инлайнового кода */
+  padding: 4px 8px; /* Отступы */
+  border-radius: 6px; /* Скругление */
+  font-family: 'Courier New', Consolas, Monaco, monospace; /* Моноширинный шрифт */
+  font-size: 0.95em; /* Чуть меньше основного текста */
+  color: var(--green); /* Яркий цвет для выделения */
+}
+
+/* Блоки с подсветкой синтаксиса (highlight.js) */
+/* Убедимся, что подсветка работает в обеих темах */
+.article pre code {
+  background: transparent !important; /* Сброс фона от highlight.js */
+  color: inherit !important; /* Наследование цвета текста */
+  padding: 0; /* Убираем отступы, они уже у pre */
+  border-radius: 0; /* Сбрасываем скругление */
+}
+
+/* Списки */
+.article ul, .article ol {
+  margin: 24px 0; /* Отступы до и после списка */
+  padding-left: 40px; /* Отступ для маркеров/нумерации */
+}
+
+.article li {
+  margin-bottom: 12px; /* Отступ между пунктами */
+  line-height: 1.7; /* Межстрочный интервал в списке */
+}
+
+/* Блоки подсказок/важного */
+.article .tip {
+  background: rgba(0, 255, 157, 0.1); /* Светлый фон с прозрачностью */
+  border-left: 4px solid var(--green); /* Акцентная линия */
+  padding: 20px 24px; /* Внутренние отступы */
+  margin: 32px 0; /* Отступы до и после */
+  border-radius: 0 8px 8px 0; /* Скругление углов */
+  border-top: 1px solid rgba(0, 255, 157, 0.2);
+  border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+  font-style: italic; /* Курсив для стиля */
+}
+
+.article .tip strong {
+  color: var(--green); /* Цвет для слова "Совет:" */
+}
+
+/* Изображения в статье (если будут) */
+.article img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px; /* Скругление углов */
+  margin: 24px 0; /* Отступы */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Тень */
+}
+
+/* Ссылки в статье */
+.article a {
+  color: var(--green);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.article a:hover {
+  opacity: 0.8;
+}
+
+/* Выделение текста */
+::selection {
+  background: var(--green);
+  color: #000;
+}
+
+/* Для вебкит-браузеров (Chrome, Safari) */
+::-webkit-selection {
+  background: var(--green);
+  color: #000;
+}
+
+/* Для Firefox */
+::-moz-selection {
+  background: var(--green);
+  color: #000;
+}
+
+/* Стили для кнопки копирования */
+.copy-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+  background: var(--green);
+  color: #000;
+  border-color: var(--green);
+}
+
+.copy-button.copied {
+  background: #22c55e;
+  color: white;
+}
