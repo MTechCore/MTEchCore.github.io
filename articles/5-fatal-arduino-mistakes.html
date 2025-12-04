@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 смертельных ошибок Arduino, которые делают даже опытные — M.Tech Core</title>
+  <link rel="stylesheet" href="../style.css">
+  <!-- Подсветка кода (по желанию) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js/11.9.0/highlight.min.js"></script>
+  <style>
+    /* Обертка для блока кода с позиционированием */
+    .code-block-wrapper {
+      position: relative;
+      margin: 32px 0;
+    }
+
+    /* Стили кнопки копирования для светлой темы */
+    .light .copy-button {
+      background: rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      color: #333;
+    }
+
+    .light .copy-button:hover {
+      background: var(--green);
+      color: #000;
+      border-color: var(--green);
+    }
+
+    .light .copy-button.copied {
+      background: #22c55e;
+      color: white;
+    }
+
+    /* Улучшение контраста для инлайнового кода в светлой теме */
+    .light .article code {
+      background: rgba(245, 245, 245, 0.7);
+      color: #1e293b;
+    }
+
+    /* Гарантированное изменение цвета текста внутри блоков кода для светлой темы */
+    .light .article pre code {
+      color: #1e293b !important;
+      background: transparent !important;
+    }
+
+    /* Изменение фона блока кода в светлой теме */
+    .light .article pre {
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05) !important;
+    }
+  </style>
+</head>
+<body class="article-page">
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">
+        <img src="../img/logo.jpg" alt="M.Tech Core" class="logo-img">
+        <h1><a href="../">M.Tech Core</a></h1>
+      </div>
+      <button id="theme-toggle">Тема</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="article">
+      <h1>5 смертельных ошибок Arduino, которые делают даже опытные</h1>
+      <p class="meta">04 декабря 2025 • #arduino #embedded #proTips</p>
+
+      <p><em>(Спойлер: проблема не в плате. И не в вас. Просто вы ещё не знаете этих трюков.)</em></p>
+      <p>Я потратил <strong>три дня</strong>, пытаясь понять, почему мой датчик движения пропускает срабатывания.
+      Код — простой. Плата — новая. Питание — стабильное.
+      А он — <strong>молчит в самый ответственный момент</strong>.
+      Оказалось — я делал <strong>ошибку №2</strong> из этого списка.
+      А многие до сих пор делают <strong>все пять</strong> — и думают, что «Arduino — ненадёжная игрушка».
+      Давайте разберём по-честному — без прикрас.</p>
+
+      <h2>Ошибка №1: delay() в основном цикле — «универсальный замедлитель»</h2>
+      <p>Что часто пишут:</p>
+      <div class="code-block-wrapper">
+        <pre><code class="language-cpp">void loop() {
+  readSensor();
+  Serial.println(value);
+  delay(1000);    // ВОТ ЭТО — ЗАМЕДЛИТЕЛЬ
+}</code></pre>
+        <button class="copy-button" onclick="copyCode(this)">Копировать</button>
+      </div>
+
+      <p><strong>Что происходит</strong>:
+      Во время delay(1000) — процессор <strong>ничего не делает</strong>.
+      Он не проверяет кнопки, не слушает I2C, не реагирует на прерывания.
+      Вы думаете — «ждёт», а на деле — <strong>зависает на целую секунду</strong>.</p>
+
+      <p>✅ <strong>Как исправить — используем millis()</strong></p>
+      <div class="code-block-wrapper">
+        <pre><code class="language-cpp">unsigned long lastPrint = 0;
+const long interval = 1000;
+
+void loop() {
+  if (millis() - lastPrint >= interval) {
+    readSensor();
+    Serial.println(value);
+    lastPrint = millis();   // обновляем время
+  }
+  // А здесь — можно проверять кнопки, Wi-Fi и всё остальное!
+}</code></pre>
+        <button class="copy-button" onclick="copyCode(this)">Копировать</button>
+      </div>
+
+      <p><strong>Результат</strong>:</p>
+      <ul>
+        <li>Кнопка реагирует <strong>мгновенно</strong>, даже при печати раз в секунду</li>
+        <li>Никаких «потерь» событий</li>
+      </ul>
+
+      <div class="tip">
+        <strong>Проверка:</strong> если в Serial Monitor строки идут «ровно по секундам» — вы на delay().
+        Если «скачут» на 1–2 мс — вы уже на millis().
+      </div>
+
+      <h2>Ошибка №2: Serial.print() в цикле без буферизации</h2>
+      <p>Частая ошибка:</p>
+      <div class="code-block-wrapper">
+        <pre><code class="language-cpp">sensorValue = analogRead(A0);
+Serial.print("Sensor: ");
+Serial.print(sensorValue);
+Serial.print(" | Time: ");
+Serial.println(millis());   // 4 вызова подряд!</code></pre>
+        <button class="copy-button" onclick="copyCode(this)">Копировать</button>
+      </div>
+
+      <p><strong>Проблема</strong>:
+      Каждый Serial.print() — отдельная передача.
+      При скорости 9600 baud:</p>
+      <ul>
+        <li>1 символ ≈ 1 мс</li>
+        <li>Строка из 30 символов = <strong>30+ мс блокировки</strong></li>
+      </ul>
+      <p>→ Процессор «стоит», пока шлётся текст.</p>
+
+      <p>✅ <strong>Исправляем — собираем строку заранее</strong></p>
+      <div class="code-block-wrapper">
+        <pre><code class="language-cpp">char buffer[64];
+snprintf(buffer, 64, "Sensor: %d | Time: %lu",
+        analogRead(A0), millis());
+Serial.println(buffer);   // одна отправка — быстро и чисто</code></pre>
+        <button class="copy-button" onclick="copyCode(this)">Копировать</button>
+      </div>
+
+      <p><strong>Эффект</strong>:</p>
+      <ul>
+        <li>Передача в 4–5 раз быстрее</li>
+        <li>Нет пропусков прерываний</li>
+        <li>Даже на 115200 baud — стабильнее</li>
+      </ul>
+
+      <div class="tip">
+        <strong>Совет:</strong> выводите отладку раз в 100 мс — не в КАЖДОМ loop().
+      </div>
+
+      <h2>Ошибка №3: Питание датчиков от 5V Arduino при USB</h2>
+      <p>Вы подключили:</p>
+      <ul>
+        <li>BME280</li>
+        <li>сервопривод</li>
+        <li>светодиодную ленту</li>
+      </ul>
+      <p>→ всё к контакту 5V на Arduino</p>
+      <p>И не понимаете, почему:</p>
+      <ul>
+        <li>датчик «прыгает»,</li>
+        <li>серво дёргается,</li>
+        <li>плата иногда перезагружается.</li>
+      </ul>
+
+      <p><strong>Истина</strong>:
+      USB даёт <strong>не больше 500 мА</strong>.
+      Arduino Uno сама жрёт ~50 мА.
+      Остаётся 450 мА — а одна серва в пике может взять 300–500 мА.</p>
+
+      <p>✅ <strong>Решение</strong>:</p>
+      <ul>
+        <li>Используйте <strong>внешний блок питания</strong> (5 В, 2 А+)</li>
+        <li>Подключайте его:
+          <ul>
+            <li>к разъёму <strong>VIN</strong> (если блок 7–12 В),</li>
+            <li>или напрямую к <strong>5V</strong> (если блок стабилизирован на 5 В!)</li>
+          </ul>
+        </li>
+        <li>И <strong>обязательно соедините GND блока и Arduino</strong></li>
+      </ul>
+
+      <div class="tip">
+        <strong>Проверьте мультиметром:</strong> напряжение на 5V при нагрузке должно быть ≥ 4.8 В.
+        Меньше — значит, просадка. Система нестабильна.
+      </div>
+
+      <h2>Ошибка №4: Кнопки без подтяжки</h2>
+      <p>Часто пишут:</p>
+      <div class="code-block-wrapper">
+        <pre><code class="language-cpp">pinMode(buttonPin, INPUT);
+...
+if (digitalRead(buttonPin) == HIGH) { ... }</code></pre>
+        <button class="copy-button" onclick="copyCode(this)">Копировать</button>
+      </div>
+
+      <p><strong>Что происходит</strong>:
+      Вход «висит в воздухе» → ловит шум, помехи, дребезг.
+      Одно нажатие = 3–5 срабатываний.</p>
+
+      <p>✅ <strong>Правильно — включаем внутренний подтяжкой резистор</strong>:</p>
+      <div class="code-block-wrapper">
+        <pre><code class="language-cpp">pinMode(buttonPin, INPUT_PULLUP);   // ВСТРОЕННЫЙ резистор (20–50 кОм)
+...
+if (digitalRead(buttonPin) == LOW) { ... }  // кнопка замыкает на GND</code></pre>
+        <button class="copy-button" onclick="copyCode(this)">Копировать</button>
+      </div>
+
+      <p>- <strong>Программная защита от дребезга</strong>:</p>
+      <div class="code-block-wrapper">
+        <pre><code class="language-cpp">if (digitalRead(btn) == LOW && millis() - lastPress > 50) {
+  // ваше действие
+  lastPress = millis();
+}</code></pre>
+        <button class="copy-button" onclick="copyCode(this)">Копировать</button>
+      </div>
+
+      <h2>Ошибка №5: Нет Watchdog — «зависни и молчи»</h2>
+      <p>Arduino может <strong>зависнуть навсегда</strong> — и вы узнаете об этом только когда зайдёте в комнату.
+      Причины:</p>
+      <ul>
+        <li>бесконечный while</li>
+        <li>ожидание ответа от «умершего» датчика</li>
+        <li>зависший I2C</li>
+      </ul>
+
+      <p>✅ <strong>Включаем сторожевого пса — Watchdog Timer</strong></p>
+      <div class="code-block-wrapper">
+        <pre><code class="language-cpp">#include &lt;avr/wdt.h&gt;
+
+void setup() {
+  wdt_enable(WDTO_2S);   // перезагрузка через 2 секунды, если не сбросить
+}
+void loop() {
+  wdt_reset();   // «я жив!» — сбрасываем таймер
+  // ваш код
+}</code></pre>
+        <button class="copy-button" onclick="copyCode(this)">Копировать</button>
+      </div>
+
+      <p><strong>Результат</strong>:</p>
+      <ul>
+        <li>При зависании — автоматическая перезагрузка</li>
+        <li>Система — <strong>самовосстанавливающаяся</strong></li>
+      </ul>
+
+      <div class="tip">
+        <strong>Важно:</strong> wdt_reset() должен быть в КАЖДОМ проходе loop().
+      </div>
+
+      <h2>Вывод: Arduino не тормозит. Вы просто <em>не слышите</em>, как он стонет.</h2>
+      <p>Эти 5 ошибок — не «глупости». Их делают даже опытные.
+      Но теперь — вы знаете, как найти «невидимые» тормоза.
+      Проверьте свой код. Перепишите одну функцию. Перезапустите.
+      И посмотрите — как ваш проект внезапно <strong>начнёт отвечать мгновенно</strong>.
+      А если нашли свою «шестую» ошибку — напишите в комментариях.
+      Я добавлю её в обновлённую версию этой статьи — с упоминанием автора.</p>
+
+    </article>
+  </main>
+
+  <script>
+    // Подсветка кода (если используешь highlight.js)
+    document.querySelectorAll('pre code').forEach(block => {
+      hljs.highlightElement(block);
+    });
+
+    // Переключение темы (из общего script.js)
+    document.getElementById('theme-toggle')?.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    });
+    if (localStorage.getItem('theme') === 'light') document.body.classList.add('light');
+
+    // Функция копирования кода (из script.js)
+    async function copyCode(button) {
+      const wrapper = button.parentElement;
+      const codeBlock = wrapper.querySelector('code');
+      const textToCopy = codeBlock.textContent;
+
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        // Визуальная обратная связь
+        const originalText = button.textContent;
+        button.textContent = 'Скопировано!';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        console.error('Ошибка при копировании: ', err);
+        alert('Не удалось скопировать текст. Пожалуйста, выделите и скопируйте вручную.');
+      }
+    }
+  </script>
+  <script src="../script.js"></script>
+</body>
+</html>
