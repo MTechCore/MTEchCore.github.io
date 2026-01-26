@@ -1,0 +1,283 @@
+---
+// src/pages/index.astro
+// ═══════════════════════════════════════════════════════════════
+// ГЛАВНАЯ СТРАНИЦА
+// Секции: Hero, Проекты (из JSON), Последние статьи (из коллекции)
+// ═══════════════════════════════════════════════════════════════
+
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// ─────────────────────────────────────────────────────────────
+// Загружаем проекты из JSON-файла
+// ─────────────────────────────────────────────────────────────
+import projectsData from '../data/projects.json';
+
+// Тип для проекта (TypeScript)
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  url: string;
+  icon: string;
+  tags: string[];
+  featured: boolean;
+}
+
+const projects: Project[] = projectsData;
+
+// Фильтруем только featured проекты для главной (или все - как хочешь)
+const featuredProjects = projects.filter(p => p.featured);
+
+// ─────────────────────────────────────────────────────────────
+// Загружаем последние статьи из Content Collections
+// ─────────────────────────────────────────────────────────────
+const allPosts = await getCollection('blog', ({ data }) => {
+  // Не показываем черновики
+  return data.draft !== true;
+});
+
+// Сортируем по дате (новые сверху) и берем 3 последних
+const latestPosts = allPosts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+// ─────────────────────────────────────────────────────────────
+// Хелпер для форматирования даты
+// ─────────────────────────────────────────────────────────────
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('ru-RU', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+---
+
+<Layout title="Главная">
+  
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- HERO СЕКЦИЯ -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section class="py-16 md:py-24">
+    <div class="max-w-3xl">
+      <!-- Приветствие -->
+      <p class="text-brand-accent font-mono text-sm mb-4 tracking-wider">
+        // Привет, я
+      </p>
+      
+      <!-- Заголовок -->
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+        <span class="text-brand-text">MTechCore</span>
+        <br />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-secondary">
+          Создаю контент и код
+        </span>
+      </h1>
+      
+      <!-- Описание -->
+      <p class="text-brand-text-dim text-lg md:text-xl max-w-2xl mb-8 leading-relaxed">
+        Разработчик и техноблогер. Делаю обзоры железа, пишу о технологиях, 
+        разрабатываю open-source инструменты. Это мой центральный хаб — 
+        здесь собраны все проекты и мысли.
+      </p>
+      
+      <!-- CTA кнопки -->
+      <div class="flex flex-wrap gap-4">
+        <a 
+          href="#projects" 
+          class="inline-flex items-center gap-2 px-6 py-3 bg-brand-accent text-brand-bg font-semibold rounded-lg hover:bg-brand-accent-dim transition-colors"
+        >
+          <span>Смотреть проекты</span>
+          <span>→</span>
+        </a>
+        <a 
+          href="/blog/" 
+          class="inline-flex items-center gap-2 px-6 py-3 border border-brand-border text-brand-text rounded-lg hover:border-brand-accent hover:text-brand-accent transition-colors"
+        >
+          <span>Читать блог</span>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Декоративный элемент -->
+    <div class="absolute top-1/2 right-0 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl -z-10"></div>
+  </section>
+  
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- СЕКЦИЯ ПРОЕКТОВ -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="projects" class="py-16">
+    <!-- Заголовок секции -->
+    <div class="flex items-center gap-4 mb-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-brand-text">
+        Проекты
+      </h2>
+      <div class="flex-1 h-px bg-brand-border"></div>
+      <span class="text-brand-text-dim font-mono text-sm">
+        {featuredProjects.length} featured
+      </span>
+    </div>
+    
+    <!-- Сетка проектов -->
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {featuredProjects.map((project) => (
+        <a 
+          href={project.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group block p-6 bg-brand-bg-light border border-brand-border rounded-xl hover:border-brand-accent/50 transition-all duration-300 hover:-translate-y-1"
+        >
+          <!-- Иконка и заголовок -->
+          <div class="flex items-start gap-3 mb-3">
+            <span class="text-3xl">{project.icon}</span>
+            <div>
+              <h3 class="font-semibold text-lg text-brand-text group-hover:text-brand-accent transition-colors">
+                {project.title}
+              </h3>
+            </div>
+          </div>
+          
+          <!-- Описание -->
+          <p class="text-brand-text-dim text-sm leading-relaxed mb-4">
+            {project.description}
+          </p>
+          
+          <!-- Теги -->
+          <div class="flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <span class="px-2 py-1 text-xs font-mono bg-brand-bg rounded-md text-brand-text-dim border border-brand-border">
+                #{tag}
+              </span>
+            ))}
+          </div>
+          
+          <!-- Стрелка "перейти" -->
+          <div class="mt-4 text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity text-sm font-mono">
+            → открыть
+          </div>
+        </a>
+      ))}
+    </div>
+    
+    <!-- Ссылка на все проекты (если есть скрытые) -->
+    {projects.length > featuredProjects.length && (
+      <p class="mt-6 text-center text-brand-text-dim text-sm">
+        + ещё {projects.length - featuredProjects.length} проектов на 
+        <a href="https://github.com/mtechcore" class="text-brand-accent hover:underline">GitHub</a>
+      </p>
+    )}
+  </section>
+  
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- СЕКЦИЯ БЛОГА -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section class="py-16">
+    <!-- Заголовок секции -->
+    <div class="flex items-center gap-4 mb-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-brand-text">
+        Свежее в блоге
+      </h2>
+      <div class="flex-1 h-px bg-brand-border"></div>
+      <a 
+        href="/blog/" 
+        class="text-brand-accent hover:text-brand-accent-dim transition-colors text-sm font-mono"
+      >
+        все статьи →
+      </a>
+    </div>
+    
+    <!-- Список статей -->
+    {latestPosts.length > 0 ? (
+      <div class="space-y-4">
+        {latestPosts.map((post) => (
+          <a 
+            href={`/blog/${post.slug}/`}
+            class="group block p-6 bg-brand-bg-light border border-brand-border rounded-xl hover:border-brand-accent/50 transition-all"
+          >
+            <div class="flex flex-col md:flex-row md:items-center gap-4">
+              <!-- Дата -->
+              <time 
+                datetime={post.data.pubDate.toISOString()}
+                class="text-brand-text-dim text-sm font-mono shrink-0"
+              >
+                {formatDate(post.data.pubDate)}
+              </time>
+              
+              <!-- Контент -->
+              <div class="flex-1">
+                <h3 class="font-semibold text-lg text-brand-text group-hover:text-brand-accent transition-colors mb-1">
+                  {post.data.title}
+                </h3>
+                <p class="text-brand-text-dim text-sm line-clamp-2">
+                  {post.data.description}
+                </p>
+              </div>
+              
+              <!-- Стрелка -->
+              <span class="text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
+                →
+              </span>
+            </div>
+            
+            <!-- Теги -->
+            {post.data.tags.length > 0 && (
+              <div class="flex flex-wrap gap-2 mt-3">
+                {post.data.tags.map((tag) => (
+                  <span class="px-2 py-0.5 text-xs font-mono bg-brand-bg rounded text-brand-text-dim">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-12 text-brand-text-dim">
+        <p class="text-4xl mb-4">📝</p>
+        <p>Статьи скоро появятся!</p>
+      </div>
+    )}
+  </section>
+  
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- КОНТАКТ / CTA -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section class="py-16">
+    <div class="bg-gradient-to-r from-brand-accent/10 to-brand-secondary/10 border border-brand-border rounded-2xl p-8 md:p-12 text-center">
+      <h2 class="text-2xl md:text-3xl font-bold text-brand-text mb-4">
+        Давай на связи
+      </h2>
+      <p class="text-brand-text-dim max-w-xl mx-auto mb-6">
+        Подписывайся на YouTube за обзорами, на GitHub за кодом, 
+        или в Telegram за быстрыми заметками.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a 
+          href="https://youtube.com/@mtechcore"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          YouTube
+        </a>
+        <a 
+          href="https://github.com/mtechcore"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-bg border border-brand-border text-brand-text rounded-lg hover:border-brand-accent transition-colors font-medium"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+  
+</Layout>
