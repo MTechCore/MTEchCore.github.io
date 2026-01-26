@@ -1,0 +1,29 @@
+[
+  {
+    "id": "losungs-tools",
+    "title": "Losungs Tools",
+    "description": "Набор утилит для разработчиков: конвертеры, генераторы, калькуляторы. Open Source.",
+    "url": "https://github.com/mtechcore/losungs-tools",
+    "icon": "🛠️",
+    "tags": ["утилиты", "open-source"],
+    "featured": true
+  },
+  {
+    "id": "tech-notes",
+    "title": "Tech Notes",
+    "description": "Мой второй мозг: заметки о технологиях, сниппеты кода, шпаргалки.",
+    "url": "https://mtechcore.github.io/tech-notes/",
+    "icon": "📝",
+    "tags": ["заметки", "документация"],
+    "featured": true
+  },
+  {
+    "id": "homelab-configs",
+    "title": "HomeLab Configs",
+    "description": "Конфиги моего домашнего сервера: Docker, Nginx, скрипты автоматизации.",
+    "url": "https://github.com/mtechcore/homelab",
+    "icon": "🖥️",
+    "tags": ["homelab", "self-hosted"],
+    "featured": false
+  }
+]
