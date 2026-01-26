@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MTechCore & Losungs — Технологии, проекты и блог о разработке">
+    <meta name="author" content="MTechCore">
+    
+    <title>MTechCore | Losungs Hub</title>
+    
+    <!-- Подключаем шрифты Google Fonts (без npm!) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Наши стили -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         ШАПКА САЙТА
+    ════════════════════════════════════════════════════════════ -->
+    <header class="header">
+        <div class="container header__inner">
+            <!-- Логотип -->
+            <a href="/" class="logo">
+                <span class="logo__icon">◈</span>
+                <span class="logo__text">
+                    <strong>MTechCore</strong>
+                    <small>by Losungs</small>
+                </span>
+            </a>
+            
+            <!-- Навигация -->
+            <nav class="nav">
+                <button class="nav__burger" id="burger" aria-label="Меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav__list" id="navList">
+                    <li><a href="#hero" class="nav__link">Главная</a></li>
+                    <li><a href="#projects" class="nav__link">Проекты</a></li>
+                    <li><a href="#blog" class="nav__link">Блог</a></li>
+                    <li><a href="#about" class="nav__link">О нас</a></li>
+                    <li><a href="#contact" class="nav__link nav__link--accent">Связаться</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         HERO СЕКЦИЯ (Главный экран)
+    ════════════════════════════════════════════════════════════ -->
+    <section class="hero" id="hero">
+        <div class="hero__bg"></div>
+        <div class="container hero__content">
+            <p class="hero__label">👋 Добро пожаловать в</p>
+            <h1 class="hero__title">
+                <span class="gradient-text">Losungs</span> Hub
+            </h1>
+            <p class="hero__subtitle">
+                Технологии • Разработка • Open Source<br>
+                <span class="typewriter" id="typewriter"></span>
+            </p>
+            <div class="hero__buttons">
+                <a href="#projects" class="btn btn--primary">Смотреть проекты</a>
+                <a href="https://github.com/YOUR-USERNAME" target="_blank" class="btn btn--outline">
+                    <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+        <!-- Декоративные элементы -->
+        <div class="hero__scroll">
+            <span>Скролль вниз</span>
+            <div class="hero__scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         СЕКЦИЯ ПРОЕКТОВ (загружается из JSON)
+    ════════════════════════════════════════════════════════════ -->
+    <section class="section projects" id="projects">
+        <div class="container">
+            <header class="section__header">
+                <span class="section__label">// Наши работы</span>
+                <h2 class="section__title">Проекты</h2>
+                <p class="section__desc">Инструменты и приложения, которые мы создаём</p>
+            </header>
+            
+            <!-- Сетка карточек — заполняется через JS -->
+            <div class="projects__grid" id="projectsGrid">
+                <!-- Карточки появятся здесь автоматически -->
+                <div class="projects__loading">
+                    <div class="loader"></div>
+                    <p>Загрузка проектов...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         СЕКЦИЯ БЛОГА (добавляй ссылки вручную)
+    ════════════════════════════════════════════════════════════ -->
+    <section class="section blog" id="blog">
+        <div class="container">
+            <header class="section__header">
+                <span class="section__label">// Делимся знаниями</span>
+                <h2 class="section__title">Блог</h2>
+                <p class="section__desc">Статьи о технологиях, туториалы и размышления</p>
+            </header>
+            
+            <div class="blog__grid">
+                
+                <!-- ╔═══════════════════════════════════════════╗
+                     ║  ДОБАВЛЯЙ НОВЫЕ СТАТЬИ СЮДА (копируй блок) ║
+                     ╚═══════════════════════════════════════════╝ -->
+                
+                <!-- Статья 1 -->
+                <article class="blog-card">
+                    <div class="blog-card__meta">
+                        <span class="blog-card__date">15 Июня 2025</span>
+                        <span class="blog-card__tag">Туториал</span>
+                    </div>
+                    <h3 class="blog-card__title">
+                        <a href="blog/my-first-article.html">Как создать сайт без фреймворков</a>
+                    </h3>
+                    <p class="blog-card__excerpt">
+                        Разбираем создание современного портфолио на чистом HTML, CSS и JavaScript...
+                    </p>
+                    <a href="blog/my-first-article.html" class="blog-card__link">
+                        Читать далее →
+                    </a>
+                </article>
+                
+                <!-- Статья 2 -->
+                <article class="blog-card">
+                    <div class="blog-card__meta">
+                        <span class="blog-card__date">10 Июня 2025</span>
+                        <span class="blog-card__tag">Обзор</span>
+                    </div>
+                    <h3 class="blog-card__title">
+                        <a href="blog/template.html">Шаблон статьи (пример)</a>
+                    </h3>
+                    <p class="blog-card__excerpt">
+                        Это пример того, как выглядит карточка статьи. Скопируй этот блок...
+                    </p>
+                    <a href="blog/template.html" class="blog-card__link">
+                        Читать далее →
+                    </a>
+                </article>
+                
+                <!-- Добавляй новые статьи выше этого комментария -->
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         О НАС
+    ════════════════════════════════════════════════════════════ -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about__grid">
+                <div class="about__content">
+                    <span class="section__label">// Кто мы такие</span>
+                    <h2 class="section__title">О проекте</h2>
+                    <p>
+                        <strong>MTechCore</strong> — это технологический блог и площадка для экспериментов.
+                        Мы создаём полезные инструменты, делимся знаниями и исследуем новые технологии.
+                    </p>
+                    <p>
+                        <strong>Losungs</strong> — наш бренд, под которым выходят все проекты.
+                        Мы верим в открытый код и доступность технологий для каждого.
+                    </p>
+                    <div class="about__stats">
+                        <div class="stat">
+                            <span class="stat__number" data-count="10">0</span>+
+                            <span class="stat__label">Проектов</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat__number" data-count="500">0</span>+
+                            <span class="stat__label">Коммитов</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat__number" data-count="1000">0</span>+
+                            <span class="stat__label">Чашек кофе</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about__visual">
+                    <div class="code-block">
+                        <div class="code-block__header">
+                            <span class="code-block__dot"></span>
+                            <span class="code-block__dot"></span>
+                            <span class="code-block__dot"></span>
+                            <span class="code-block__title">about.js</span>
+                        </div>
+                        <pre class="code-block__content"><code><span class="code-keyword">const</span> developer = {
+  <span class="code-key">name</span>: <span class="code-string">"MTechCore"</span>,
+  <span class="code-key">brand</span>: <span class="code-string">"Losungs"</span>,
+  <span class="code-key">skills</span>: [
+    <span class="code-string">"HTML/CSS"</span>,
+    <span class="code-string">"JavaScript"</span>,
+    <span class="code-string">"Python"</span>,
+    <span class="code-string">"Open Source"</span>
+  ],
+  <span class="code-key">passion</span>: <span class="code-string">"Creating cool stuff"</span>
+};
+
+<span class="code-keyword">export default</span> developer;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         КОНТАКТЫ
+    ════════════════════════════════════════════════════════════ -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <header class="section__header">
+                <span class="section__label">// Давайте общаться</span>
+                <h2 class="section__title">Контакты</h2>
+            </header>
+            
+            <div class="contact__links">
+                <a href="https://github.com/YOUR-USERNAME" target="_blank" class="contact__link">
+                    <span class="contact__icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                    </span>
+                    <span class="contact__name">GitHub</span>
+                </a>
+                <a href="https://t.me/YOUR-TELEGRAM" target="_blank" class="contact__link">
+                    <span class="contact__icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                        </svg>
+                    </span>
+                    <span class="contact__name">Telegram</span>
+                </a>
+                <a href="mailto:your@email.com" class="contact__link">
+                    <span class="contact__icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                        </svg>
+                    </span>
+                    <span class="contact__name">Email</span>
+                </a>
+                <a href="https://youtube.com/@YOUR-CHANNEL" target="_blank" class="contact__link">
+                    <span class="contact__icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </span>
+                    <span class="contact__name">YouTube</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         ФУТЕР
+    ════════════════════════════════════════════════════════════ -->
+    <footer class="footer">
+        <div class="container footer__inner">
+            <div class="footer__brand">
+                <span class="logo__icon">◈</span>
+                <span>MTechCore / Losungs</span>
+            </div>
+            <p class="footer__copy">
+                © <span id="currentYear"></span> Все права защищены. 
+                Сделано с 💙 и чистым кодом.
+            </p>
+            <p class="footer__tech">
+                HTML5 • CSS3 • Vanilla JS • GitHub Pages
+            </p>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="script.js"></script>
+</body>
+</html>
