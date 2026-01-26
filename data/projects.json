@@ -1,38 +1,20 @@
 [
     {
         "id": 1,
-        "icon": "🛠️",
-        "title": "DevToolkit",
-        "description": "Набор полезных инструментов для разработчиков. CLI-утилиты, скрипты автоматизации и шаблоны проектов.",
-        "tags": ["Python", "CLI", "Automation"],
-        "github": "https://github.com/YOUR-USERNAME/devtoolkit",
-        "demo": null
+        "icon": "🎯",
+        "title": "Карьерный навигаторt",
+        "description": "Современное веб-приложение для профориентации с элементами геймификации, глубоким психологическим анализом и полной автономностью.",
+        "tags": ["HTML", "CSS", "JavaScript"],
+        "github": "https://github.com/MTechCore/test-profession",
+        "demo": "https://mtechcore.github.io/test-profession/"
     },
     {
         "id": 2,
-        "icon": "🎨",
-        "title": "Color Palette Generator",
-        "description": "Веб-приложение для генерации гармоничных цветовых палитр. Экспорт в CSS, SCSS и JSON.",
-        "tags": ["JavaScript", "CSS", "Design"],
-        "github": "https://github.com/YOUR-USERNAME/color-palette",
-        "demo": "https://your-username.github.io/color-palette"
-    },
-    {
-        "id": 3,
-        "icon": "📊",
-        "title": "Analytics Dashboard",
-        "description": "Минималистичный дашборд для визуализации данных. Интерактивные графики без внешних зависимостей.",
-        "tags": ["JavaScript", "Canvas", "Data Viz"],
-        "github": "https://github.com/YOUR-USERNAME/analytics-dashboard",
-        "demo": "https://your-username.github.io/analytics-dashboard"
-    },
-    {
-        "id": 4,
-        "icon": "🤖",
-        "title": "Telegram Bot Framework",
-        "description": "Лёгкий фреймворк для создания Telegram-ботов на Python. Поддержка inline-режима и webhooks.",
-        "tags": ["Python", "Telegram", "Bot"],
-        "github": "https://github.com/YOUR-USERNAME/tg-bot-framework",
-        "demo": null
+        "icon": "🧪",
+        "title": "Тест идеальной системы",
+        "description": "Интеллектуальный тест для определения идеальной операционной системы",
+        "tags": ["JavaScript", "CSS", "HTML"],
+        "github": "https://github.com/MTechCore/test-os",
+        "demo": "https://mtechcore.github.io/test-os/"
     }
 ]
