@@ -16,5 +16,14 @@
         "tags": ["JavaScript", "CSS", "HTML"],
         "github": "https://github.com/MTechCore/test-os",
         "demo": "https://mtechcore.github.io/test-os/"
+    },
+    {
+        "id": 3,
+        "icon": "🧠",
+        "title": "Тест на ваш интеллект",
+        "description": "Интеллектуальный тест для определентя вашего уровня интеллекта",
+        "tags": ["JavaScript", "CSS", "HTML"],
+        "github": "https://github.com/MTechCore/test-intelligence",
+        "demo": "https://mtechcore.github.io/test-intelligence/"
     }
 ]
